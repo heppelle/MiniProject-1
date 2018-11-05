@@ -7,22 +7,22 @@ import random
 
 
 
-def start():
+def start(c):
     user_type = input("Welcome, select 'L' to login or 'S' to signup if you are a new user!")
     if (user_type.lower() == 'l'):
         print("Processing Log In...")
         user_email = input("Please enter your email: ")
         # verify email
-        #user_password = input("Please enter your password: ")
+        # user_password = input("Please enter your password: ")
         # verify password
         return user_email
     if (user_type.lower() == 's'):
         print("Processing Sign up...")
         new_user_email = input("Please enter sign up email: ")
         # verify email, reprompt if email already exists.
-        #new_user_name = input("Please enter your name: ")
-        #new_user_phone = input("Please enter your phone number: ")
-        #new_user_password = input("Please enter password: ")
+        # new_user_name = input("Please enter your name: ")
+        # new_user_phone = input("Please enter your phone number: ")
+        # new_user_password = input("Please enter password: ")
         # insert new account information to the database
         print("account created!")
         return new_user_email
@@ -84,7 +84,7 @@ def search_ride(user_email):
     while search:
         while add_keywords:
             keyword = input("Enter a keyword to search for a ride (enter '0' to finish adding keywords): ")
-            if keyword = '0':
+            if keyword == '0':
                 break
             keywords.append(keyword)
 
@@ -151,11 +151,11 @@ def ride_request(user_email):
     # TODO: implement basic flow of the task
     while (True):
         command = input("Enter 'sh' to view your ride requests, or 's' to search for others ride requests: ")
-        if command = '0':
+        if command == '0':
             break
-        elif command.lower() = 'sh':
+        elif command.lower() == 'sh':
             show_ride_request(user_email)
-        elif command.lower() = 's':
+        elif command.lower() == 's':
             search_ride_request()
         else:
             print("Invalid option...")
@@ -165,7 +165,7 @@ def ride_request(user_email):
 def flow(user_email):
     task = ""
     while (True):
-        print("Select a task. 'O' to offer a ride, 'S' to search for a ride, 'book' to book a ride, 'vbook' to view booking details. 'P' to post ride requests, 'SR' for editing and searching ride requests.")
+        print("Select a task. 'O' to offer a ride, 'S' to search for a ride, 'book' to book a ride, 'vbook' to view booking details. 'P' to post ride requests, 'SR' for editing and searching ride requests.('0' to terminate program.)")
         task = input("Enter task > ")
 
         if (task.lower() == 'o'):
@@ -187,17 +187,16 @@ def flow(user_email):
             print("invalid request.")
 
 def main():
-    '''
-    db = 'file_location'
+
+    db = 'prj-tables.sql'
     try:
-        conn = sqlite3.connect(sqlite_file)
+        conn = sqlite3.connect(db)
+        print("Connection to database succcessful.")
     except:
         print("Connection to database not established.")
     c = conn.cursor()
-    '''
 
-    '''
-    user_email = start()
+    user_email = start(c)
     if (user_email == None):
         print("Invalid email, terminating program...")
         # conn.close()
@@ -208,7 +207,6 @@ def main():
         exit()
     else:
         print_messages(user_email)
-    '''
     # after login/signup and messages are displayed
     user_email = "joeheppelle123@hotmail.com"
     flow(user_email)
@@ -216,4 +214,3 @@ def main():
     # conn.commit()
     # conn.close()
 main()
-    # Log in a user or register a new user.
